@@ -1,1 +1,26 @@
-{"user1":{"name":"mahesh","password":"password1","profession":"teacher","id":1},"thisisanexampleid":{"name":"Maelle Allanic","password":"1234","ordernums":0,"currentorders":[],"id":"thisisanexampleid"},"user3":{"name":"ramesh","password":"password3","profession":"clerk","id":3},"lolbot55555@gmail.com":{"name":"Aidan","password":"1234","id":"lolbot55555@gmail.com"}}
+{
+   "user1": {
+      "name": "mahesh",
+      "password": "password1",
+      "profession": "teacher",
+      "id": 1
+   },
+   "thisisanexampleid": {
+      "name": "Maelle Allanic",
+      "password": "1234",
+      "ordernums": 0,
+      "currentorders": [],
+      "id": "thisisanexampleid"
+   },
+   "user3": {
+      "name": "ramesh",
+      "password": "password3",
+      "profession": "clerk",
+      "id": 3
+   },
+   "lolbot55555@gmail.com": {
+      "name": "Aidan",
+      "password": "1234",
+      "id": "lolbot55555@gmail.com"
+   }
+}

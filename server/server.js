@@ -116,8 +116,13 @@ app.post('/addProducts/:farmerid', function (req, res) {
       let newdata=JSON.parse(data);
       let products=JSON.parse(data)[req.params.farmerid]["products"];
       console.log(req.body.products);
-      for (let item of req.body.products) {
-          products[item.id]=item;
+      for (let item of req.body) {
+         console.log(item.id);
+         if (item.id==undefined) {
+            res.end("INVALID_DATA");
+            return;
+         }
+         products[item.id]=item;
       }
       newdata[req.params.farmerid]["products"]=products; 
       console.log(newdata);
@@ -207,8 +212,44 @@ app.get('/joinMarket/:farmerid/:marketid', function (req, res) {
          })
       }
 })})
-//Farmers Market Product Aggregate
 
+//Farmers Market Product Aggregate
+app.get('/marketProducts/:marketid', function (req, res) {
+   let market;
+   let marketid=req.params.marketid;
+   
+   fs.readFile( __dirname + "/" + "markets.json", 'utf8', function (err, data) {
+      let products=[]
+      if (JSON.parse(data)==undefined||JSON.parse(data)[marketid]== undefined) {
+         res.end("MARKET_NOT_FOUND");
+         console.log("END")
+         return;
+      } else {
+         let farmers;
+         fs.readFile( __dirname + "/" + "farmers.json", 'utf8', function (err, data2) {
+            farmers=JSON.parse(data2);          
+            let users=JSON.parse(data)[marketid]["farmers"];            
+            for (let user of users) {
+               console.log(user);
+               if (farmers[user]==undefined) {
+                  res.end("ERR");
+                  return;
+               }
+               if (farmers[user]==undefined) {
+                  continue;
+               }
+               for (let product of Object.keys(farmers[user]["products"])) {
+                  console.log(product);
+                  products.push([farmers[user]["products"][product],user]);
+               }
+            }
+            res.end(JSON.stringify(products));
+         })
+         
+      }
+
+   })
+})
 //Get Nearest Farmers' Market to user
 
 //Add Subcontractor
