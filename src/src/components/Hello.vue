@@ -14,8 +14,6 @@
         <div class="hidden" id="step-2">
           <input type="text" placeholder="ZIP Code" aria-label="ZIP Code">
           <button>Use Current Location</button>
-          <div class="flex-row">
-          </div>
         </div>
       </form>
     </div>
@@ -24,9 +22,17 @@
 
 <script>
 export default {
-  name: 'hello',
+  name: 'Hello',
+  data () {
+    return {
+      step: 1
+    }
+  },
   methods: {
     showNextStep (e) {
+      document.getElementById(`step-${this.step}`).style.display = 'none'
+      this.step += 1
+      document.getElementById(`step-${this.step}`).style.display = 'flex'
       e.preventDefault()
     }
   }
@@ -67,7 +73,7 @@ export default {
     }
 
     input {
-      border: #aaa solid 1px;
+      border: #ccc solid 1px;
       border-radius: 3px;
       display: block;
       flex: 1 1;
@@ -77,7 +83,8 @@ export default {
     }
 
     button {
-      border: #aaa solid 1px;
+      background-color: #eee;
+      border: #ccc solid 1px;
       color: #000;
       margin: 5px 0;
       padding: 10px 20px;

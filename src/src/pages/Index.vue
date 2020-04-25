@@ -11,6 +11,9 @@ export default {
   name: 'Index',
   components: {
     Hello
+  },
+  mounted () {
+    // Check if user logged in, if so, hide the Hello component
   }
 }
 </script>
