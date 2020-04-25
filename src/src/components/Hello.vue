@@ -1,52 +1,95 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="http://chat.vuejs.org/" target="_blank" rel="noopener">Vue Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="http://vuejs-templates.github.io/webpack/" target="_blank" rel="noopener">Docs for This Template</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+    <img class="logo" src="../assets/unChained_Square.svg" />
+    <div class="step">
+      <form>
+        <div>
+          <input type="text" placeholder="Name">
+          <input type="text" placeholder="Email">
+          <div class="flex-row">
+            <button>Register</button>
+            <button>Login</button>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'hello',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js PWA'
-    }
-  }
+  name: 'hello'
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-h1, h2 {
-  font-weight: normal;
+<style lang="scss">
+.hello { // Is it me, you're looking for?
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  min-height: 100vh;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+.logo {
+  width: 200px;
+  margin: 10px auto;
+  animation: fade-in 1.5s forwards;
 }
 
-li {
-  display: inline-block;
-  margin: 0 10px;
+.step {
+  margin: 10px auto;
+  width: 320px;
+  height: 0;
+  overflow: hidden;
+  animation: slide-down 1s 0.5s forwards;
+
+  form {
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .flex-row {
+      flex-direction: row;
+    }
+
+    input {
+      border: #aaa solid 1px;
+      border-radius: 3px;
+      display: block;
+      flex: 1 1;
+      font-size: 1rem;
+      margin: 5px 0;
+      padding: 10px 15px;
+    }
+
+    button {
+      color: #000;
+      margin: 5px 0;
+      padding: 10px 20px;
+      flex: 1 1;
+    }
+  }
 }
 
-a {
-  color: #35495E;
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 100px;
+    padding-bottom: 100px;
+  }
 }
 </style>
