@@ -1,14 +1,20 @@
 <template>
   <div class="hello">
-    <img class="logo" src="../assets/unChained_Square.svg" />
+    <img class="logo" src="../assets/unChained_Square.svg" alt="Logo" />
     <div class="step">
       <form>
-        <div>
-          <input type="text" placeholder="Name">
-          <input type="text" placeholder="Email">
+        <div id="step-1">
+          <input type="text" placeholder="Name" aria-label="Name">
+          <input type="text" placeholder="Email" aria-label="Email">
           <div class="flex-row">
-            <button>Register</button>
-            <button>Login</button>
+            <button @click="showNextStep($event);">Register</button>
+            <button @click="showNextStep($event);">Login</button>
+          </div>
+        </div>
+        <div class="hidden" id="step-2">
+          <input type="text" placeholder="ZIP Code" aria-label="ZIP Code">
+          <button>Use Current Location</button>
+          <div class="flex-row">
           </div>
         </div>
       </form>
@@ -18,7 +24,12 @@
 
 <script>
 export default {
-  name: 'hello'
+  name: 'hello',
+  methods: {
+    showNextStep (e) {
+      e.preventDefault()
+    }
+  }
 }
 </script>
 
@@ -66,10 +77,21 @@ export default {
     }
 
     button {
+      border: #aaa solid 1px;
       color: #000;
       margin: 5px 0;
       padding: 10px 20px;
       flex: 1 1;
+      transition-duration: 0.3s;
+
+      &:hover {
+        background-color: #f53;
+        outline: none;
+      }
+    }
+
+    .hidden {
+      display: none;
     }
   }
 }
