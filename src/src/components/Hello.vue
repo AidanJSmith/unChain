@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div id="hello">
     <img class="logo" src="../assets/unChained_Square.svg" alt="Logo" />
     <div class="step">
       <form>
@@ -35,7 +35,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-.hello { // Is it me, you're looking for?
+#hello { // Is it me, you're looking for?
   display: flex;
   flex-direction: column;
   justify-content: center;
