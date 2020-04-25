@@ -1,5 +1,15 @@
 <template>
   <div>
+    <h1>Local Markets</h1>
+    <div class="flex-wrap">
+      <div class="card">
+        <h2>Some Market</h2>
+        <p>Location</p>
+        <p>Date</p>
+        <p>Some Vendors</p>
+        <p>Rating</p>
+      </div>
+    </div>
     <Hello />
   </div>
 </template>
@@ -17,3 +27,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>

@@ -61,6 +61,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 #hello { // Is it me, you're looking for?
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
