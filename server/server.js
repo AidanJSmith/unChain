@@ -69,7 +69,7 @@ app.post('/newFarmer', function(req, res){              //Takes the name, passwo
             res.send("ALREADY_REGISTERED");
             return;
          }
-         newdata[req.body.id]= {"password":req.body.password,"id":req.body.id,"farmName":req.body.farmName,"isContractor":req.body.isContractor,"routes":[], "rep":100,reviews:[],"products":{},"gps":req.body.latlong};
+         newdata[req.body.id]= {"password":req.body.password,"markets":[],"id":req.body.id,"farmName":req.body.farmName,"isContractor":req.body.isContractor,"routes":[], "rep":100,reviews:[],"products":{},"gps":req.body.latlong};
          fs.writeFileSync( __dirname + "/" + "farmers.json", JSON.stringify(newdata), 'utf-8');
          res.send("OK");
       });
@@ -172,9 +172,42 @@ app.get('/deleteProduct/:farmerid/:productid', function (req, res) {
       
    });
 })
-//Farmers Market Product Aggregate
 
 //Join Market
+app.get('/joinMarket/:farmerid/:marketid', function (req, res) {
+   let market;
+   let marketid=req.params.marketid;
+   let farmerid=req.params.farmerid;
+   fs.readFile( __dirname + "/" + "markets.json", 'utf8', function (err, data) {
+      if (JSON.parse(data)==undefined||JSON.parse(data)[marketid]== undefined) {
+         res.end("MARKET_NOT_FOUND");
+         console.log("END")
+         return;
+      } else {
+         market=JSON.parse(data);
+         console.log(market);
+         fs.readFile( __dirname + "/" + "farmers.json", 'utf8', function (err, data) {
+            if (JSON.parse(data)[req.params.farmerid]==undefined) {
+               res.end("USER_NOT_FOUND");
+               return;
+            } else {
+               let farmers=JSON.parse(data);
+               market[req.params.marketid]["farmers"].push(req.params.farmerid);
+               farmers[req.params.farmerid]["markets"].push(req.params.marketid);
+               fs.writeFile( __dirname + "/" + "markets.json", JSON.stringify(market), 'utf-8', function (err) {
+                  if (err) res.send(err);
+                  return;
+               });
+               fs.writeFile( __dirname + "/" + "farmers.json", JSON.stringify(farmers), 'utf-8', function (err) {
+                  if (err) res.send(err);
+                  return;
+               });
+               res.send("OK"); 
+            }
+         })
+      }
+})})
+//Farmers Market Product Aggregate
 
 //Get Nearest Farmers' Market to user
 
