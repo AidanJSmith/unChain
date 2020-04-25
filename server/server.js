@@ -69,7 +69,7 @@ app.post('/newFarmer', function(req, res){              //Takes the name, passwo
             res.send("ALREADY_REGISTERED");
             return;
          }
-         newdata[req.body.id]= {"password":req.body.password,"id":req.body.id,"farmName":req.body.farmName,"isContractor":req.body.isContractor,"routes":[], "rep":100,reviews:[],"products":[],"gps":req.body.latlong};
+         newdata[req.body.id]= {"password":req.body.password,"id":req.body.id,"farmName":req.body.farmName,"isContractor":req.body.isContractor,"routes":[], "rep":100,reviews:[],"products":{},"gps":req.body.latlong};
          fs.writeFileSync( __dirname + "/" + "farmers.json", JSON.stringify(newdata), 'utf-8');
          res.send("OK");
       });
@@ -105,12 +105,73 @@ app.post('/newMarket', function(req, res){              //Takes the name, passwo
    }
 
 });
-// Add Products
+// Add/Update Products
+app.post('/addProducts/:farmerid', function (req, res) {
+   res.setHeader('Content-Type', 'application/json'); 
+   fs.readFile( __dirname + "/" + "farmers.json", 'utf8', function (err, data) {
+      if (JSON.parse(data)[req.params.farmerid]== undefined) {
+         res.send("USER_NOT_FOUND");
+         return;
+      };
+      let newdata=JSON.parse(data);
+      let products=JSON.parse(data)[req.params.farmerid]["products"];
+      console.log(req.body.products);
+      for (let item of req.body.products) {
+          products[item.id]=item;
+      }
+      newdata[req.params.farmerid]["products"]=products; 
+      console.log(newdata);
+      fs.writeFile( __dirname + "/" + "farmers.json", JSON.stringify(newdata), 'utf-8', function (err) {
+         if (err) res.send(err);
+         console.log('Replaced!');
+       }); 
+      
+      res.send("OK");
+      
+   });
+})
 
 //Get Products
-
+app.get('/getProducts/:farmerid', function (req, res) {
+   res.setHeader('Content-Type', 'application/json'); 
+   fs.readFile( __dirname + "/" + "farmers.json", 'utf8', function (err, data) {
+      if (JSON.parse(data)[req.params.farmerid]== undefined) {
+         res.send("USER_NOT_FOUND");
+         return;
+      };
+      let products=JSON.parse(data)[req.params.farmerid]["products"];
+      
+      res.send(JSON.stringify(products));
+      
+   });
+})
 //Delete Products
-
+app.get('/deleteProduct/:farmerid/:productid', function (req, res) {
+   res.setHeader('Content-Type', 'application/json'); 
+   fs.readFile( __dirname + "/" + "farmers.json", 'utf8', function (err, data) {
+      if (JSON.parse(data)[req.params.farmerid]== undefined) {
+         res.send("USER_NOT_FOUND");
+         return;
+      };
+      let newdata=JSON.parse(data);
+      let products=JSON.parse(data)[req.params.farmerid]["products"];
+      try {
+         delete products[req.params.productid];
+      } catch (e) {
+         console.log(e);
+         res.send("INVALID_PRODUCT");
+      }
+      newdata[req.params.farmerid]["products"]=products; 
+      console.log(newdata);
+      fs.writeFile( __dirname + "/" + "farmers.json", JSON.stringify(newdata), 'utf-8', function (err) {
+         if (err) res.send(err);
+         console.log('Removed.');
+       }); 
+      
+      res.send("OK");
+      
+   });
+})
 //Farmers Market Product Aggregate
 
 //Join Market
