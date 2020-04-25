@@ -4,16 +4,20 @@
     <div class="step">
       <form>
         <div id="step-1">
-          <input type="text" placeholder="Name" aria-label="Name">
           <input type="text" placeholder="Email" aria-label="Email">
+          <input type="password" placeholder="Password" aria-label="Password">
           <div class="flex-row">
             <button @click="showNextStep($event);">Register</button>
             <button @click="showNextStep($event);">Login</button>
           </div>
         </div>
         <div class="hidden" id="step-2">
-          <input type="text" placeholder="ZIP Code" aria-label="ZIP Code">
-          <button>Use Current Location</button>
+          <div class="flex-row">
+            <input type="text" placeholder="ZIP Code" aria-label="ZIP Code" v-model="zip">
+            <button id="continueWithZIP" class="hidden" @click="showNextStep($event);">Go</button>
+          </div>
+          <p>or</p>
+          <button @click="showNextStep($event);">Use Current Location</button>
         </div>
       </form>
     </div>
@@ -25,15 +29,30 @@ export default {
   name: 'Hello',
   data () {
     return {
-      step: 1
+      step: 1,
+      zip: null
     }
   },
   methods: {
     showNextStep (e) {
       document.getElementById(`step-${this.step}`).style.display = 'none'
       this.step += 1
+      if (this.step === 3) {
+        document.getElementById('hello').style.opacity = 0
+        setTimeout(() => {
+          document.getElementById('hello').style.display = 'none'
+        }, 1000)
+        e.preventDefault()
+      }
       document.getElementById(`step-${this.step}`).style.display = 'flex'
       e.preventDefault()
+    }
+  },
+  watch: {
+    'zip': function () {
+      if (this.zip) {
+        document.getElementById('continueWithZIP').style.display = 'unset'
+      }
     }
   }
 }
@@ -47,6 +66,7 @@ export default {
   justify-content: center;
   align-content: center;
   min-height: 100vh;
+  transition-duration: 1s;
 }
 
 .logo {
