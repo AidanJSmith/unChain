@@ -3,12 +3,39 @@ var app = express();
 var fs = require("fs");
 app.use(bodyParser.json());
 
+//Get User Data
 app.get('/getUser/:id', function (req, res) {
    fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
-      console.log( JSON.parse(data)[req.params.id] );
+      if (JSON.parse(data)[req.params.id]== undefined) {
+         res.send("NOT_FOUND");
+         return;
+      };
       res.end( JSON.stringify(JSON.parse(data)[req.params.id])  );
    });
 })
+
+//Get Farmer Data
+app.get('/getFarmer/:id', function (req, res) {
+   fs.readFile( __dirname + "/" + "farmers.json", 'utf8', function (err, data) {
+      if (JSON.parse(data)[req.params.id]== undefined) {
+         res.send("NOT_FOUND");
+         return;
+      };
+      res.end( JSON.stringify(JSON.parse(data)[req.params.id])  );
+   });
+})
+
+//Get Farmers' Market Data
+app.get('/getMarket/:id', function (req, res) {
+   fs.readFile( __dirname + "/" + "markets.json", 'utf8', function (err, data) {
+      if (JSON.parse(data)[req.params.id]== undefined) {
+         res.send("NOT_FOUND");
+         return;
+      };
+      res.end( JSON.stringify(JSON.parse(data)[req.params.id])  );
+   });
+})
+//Create a new User
 app.post('/newUser', function(req, res){              //Takes the name, password, and internal ID of a new user.
    res.setHeader('Content-Type', 'application/json'); 
    console.log(req.body);
@@ -30,7 +57,9 @@ app.post('/newUser', function(req, res){              //Takes the name, password
    }
 
 });
-app.post('/newFarmer', function(req, res){              //Takes the name, password, and internal ID of a new user.
+
+//Create a new Farmer
+app.post('/newFarmer', function(req, res){              //Takes the name, password,subcontractor status, and internal ID, and coordinates of a new farmer.
    res.setHeader('Content-Type', 'application/json'); 
    console.log(req.body);
    if (req.body.id!=null&&req.body.password!=null&&req.body.latlong!=null&&req.body.farmName!=null&&req.body.isContractor!=null) {
@@ -40,7 +69,7 @@ app.post('/newFarmer', function(req, res){              //Takes the name, passwo
             res.send("ALREADY_REGISTERED");
             return;
          }
-         newdata[req.body.id]= {"password":req.body.password,"id":req.body.id,"farmName":req.body.farmName,"isContractor":req.body.isContractor,"gps":req.body.latlong};
+         newdata[req.body.id]= {"password":req.body.password,"id":req.body.id,"farmName":req.body.farmName,"isContractor":req.body.isContractor,"routes":[], "rep":100,reviews:[],"products":[],"gps":req.body.latlong};
          fs.writeFileSync( __dirname + "/" + "farmers.json", JSON.stringify(newdata), 'utf-8');
          res.send("OK");
       });
@@ -52,8 +81,49 @@ app.post('/newFarmer', function(req, res){              //Takes the name, passwo
    }
 
 });
+
+//Create Farmers' Market
+app.post('/newMarket', function(req, res){              //Takes the name, password,subcontractor status, and internal ID, and coordinates of a new farmer.
+   res.setHeader('Content-Type', 'application/json'); 
+   console.log(req.body);
+   if (req.body.id!=null&&req.body.latlong!=null&&req.body.name!=null&&req.body.schedule!=null&&req.body.description!=null) {
+      fs.readFile( __dirname + "/" + "markets.json", 'utf8', function (err, data) {
+         let newdata= JSON.parse(data);
+         if (Object.keys(newdata).includes(req.body.id)) {
+            res.send("ALREADY_REGISTERED");
+            return;
+         }
+         newdata[req.body.id]= {"id":req.body.id,"marketName":req.body.name,"farmers":[],"schedule":req.body.schedule,"description":req.body.description,"gps":req.body.latlong};
+         fs.writeFileSync( __dirname + "/" + "markets.json", JSON.stringify(newdata), 'utf-8');
+         res.send("OK");
+      });
+      
+      
+   } else {
+      res.send("INVALD_DATA");
+      return;
+   }
+
+});
+// Add Products
+
+//Get Products
+
+//Delete Products
+
+//Farmers Market Product Aggregate
+
+//Join Market
+
+//Get Nearest Farmers' Market to user
+
+//Add Subcontractor
+
+//Find Subcontractors On Farmer's Route
+
+
 var server = app.listen(8081, function () {
    var host = server.address().address
    var port = server.address().port
-   console.log("Example app listening at http://%s:%s", host, port)
+   console.log("unChain listening at http://%s:%s", host, port)
 })
