@@ -275,10 +275,12 @@ app.get('/marketsNear/:lat/:long', function (req, res) {
    let longitude=req.params.long;
    fs.readFile( __dirname + "/" + "markets.json", 'utf8', function (err, data) {
       let withinrange=[]
+      let newdata=JSON.parse(data);
       for (let market of Object.keys(JSON.parse(data))) {
          console.log(market);
-         console.log(data["exfat"]);
-         let distance= getDistanceFromLatLonInKm(latitude,longitude,data[market]["gps"].split("lat")[1].split("long")[0],data[market]["gps"].split("lat")[1].split("long")[1])
+         console.log(market);
+         console.log(newdata["exfat"]);
+         let distance= getDistanceFromLatLonInKm(latitude,longitude,newdata[market]["gps"].split("lat")[1].split("long")[0],newdata[market]["gps"].split("lat")[1].split("long")[1])
          if (distance<=25) {
             withinrange.push([market,distance]);
          }
