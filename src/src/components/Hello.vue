@@ -1,23 +1,23 @@
 <template>
-  <div id="hello">
-    <img class="logo" src="../assets/unChained_Square.svg" alt="Logo" />
-    <div class="step">
+  <div id='hello'>
+    <img class='logo' src='../assets/unChained_Square.svg' alt='Logo' />
+    <div class='step'>
       <form>
-        <div id="step-1">
-          <input type="text" placeholder="Email" aria-label="Email">
-          <input type="password" placeholder="Password" aria-label="Password">
-          <div class="flex-row">
-            <button @click="showNextStep($event);">Register</button>
-            <button @click="showNextStep($event);">Login</button>
+        <div id='step-1'>
+          <input type='text' placeholder='Email' aria-label='Email'>
+          <input type='password' placeholder='Password' aria-label='Password'>
+          <div class='flex-row'>
+            <button @click='showNextStep($event);'>Register</button>
+            <button @click='showNextStep($event);'>Login</button>
           </div>
         </div>
-        <div class="hidden" id="step-2">
-          <div class="flex-row">
-            <input type="text" placeholder="ZIP Code" aria-label="ZIP Code" v-model="zip">
-            <button id="continueWithZIP" class="hidden" @click="showNextStep($event);">Go</button>
+        <div class='hidden' id='step-2'>
+          <div class='flex-row'>
+            <input type='combobox' id="city" placeholder="Your City" />
+            <button id='continueWithArea' class='hidden' @click='showNextStep($event);'>Go</button>
           </div>
           <p>or</p>
-          <button @click="showNextStep($event);">Use Current Location</button>
+          <button @click='showNextStep($event);'>Use Current Location</button>
         </div>
       </form>
     </div>
@@ -30,6 +30,7 @@ export default {
   data () {
     return {
       step: 1,
+      isFarmer: false,
       zip: null
     }
   },
@@ -46,20 +47,23 @@ export default {
       }
       document.getElementById(`step-${this.step}`).style.display = 'flex'
       e.preventDefault()
+    },
+    locale () {
+      fetch('https://secure.geobytes.com/AutoCompleteCity?key=7c756203dbb38590a66e01a5a3e1ad96&callback=?&q=').then()
     }
   },
   watch: {
     'zip': function () {
       if (this.zip) {
-        document.getElementById('continueWithZIP').style.display = 'unset'
+        document.getElementById('continueWithArea').style.display = 'unset'
       }
     }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
+<!-- Add 'scoped' attribute to limit CSS to this component only -->
+<style lang='scss'>
 #hello { // Is it me, you're looking for?
   position: absolute;
   top: 0;
@@ -72,6 +76,7 @@ export default {
   align-content: center;
   min-height: 100vh;
   transition-duration: 1s;
+  display: none;
 }
 
 .logo {
