@@ -10,7 +10,7 @@
           <router-link to="/">
             <span class="oi" data-glyph="magnifying-glass" title="Search"></span>
           </router-link>
-          <router-link to="/account">
+          <router-link to="/subcontracting">
             <span class="oi" data-glyph="person" title="Account"></span>
           </router-link>
         </div>
