@@ -44,13 +44,12 @@ export default {
       e.preventDefault()
     },
     locale () {
-      navigator.geolocation.getCurrentPosition((location) => {
-        this.$emit('setLat', location.coords.latitude)
-        this.$emit('setLong', location.coords.longitude)
-        console.log(location.coords.latitude)
-        console.log(location.coords.longitude)
-        console.log(location.coords.accuracy)
-      })
+      navigator.geolocation.getCurrentPosition(this.emit)
+    },
+    emit (loc) {
+      console.log(loc)
+      this.$emit('set-lat', loc.coords.latitude)
+      this.$emit('set-long', loc.coords.longitude)
     }
   }
 }

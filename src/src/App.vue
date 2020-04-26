@@ -50,7 +50,7 @@ body {
 
 main {
   text-align: center;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
 
   footer {
@@ -58,7 +58,7 @@ main {
     line-height: 50px;
     height: 50px;
     padding-top: 10px;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;

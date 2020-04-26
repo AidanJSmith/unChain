@@ -1,6 +1,9 @@
 var express = require('express'), bodyParser = require('body-parser');
+var cors = require('cors')
 var app = express();
 var fs = require("fs");
+
+app.use(cors());
 app.use(bodyParser.json());
 
 function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) { //https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
@@ -285,6 +288,7 @@ app.get('/marketsNear/:lat/:long', function (req, res) {
             withinrange.push([market,distance]);
          }
       }
+      
       res.send(JSON.stringify(withinrange));
    });
 })
@@ -312,7 +316,6 @@ app.get('/subcontractNear/:lat/:long', function (req, res) {
       res.end(JSON.stringify(withinrange));
    })
 })
-
 
 var server = app.listen(8081, function () {
    var host = server.address().address

@@ -12,6 +12,21 @@
       "Wednesday"
     ],
     "description": "A place for cool cats",
-    "gps": "lat37.3long-121.874"
+    "gps": "lat37.3long-122"
+  },
+  "exfat2": {
+    "id": "exfat2",
+    "marketName": "Aidan's market",
+    "farmers": [
+      "doggo",
+      "doggo2"
+    ],
+    "schedule": [
+      "Monday",
+      "Tuesday",
+      "Wednesday"
+    ],
+    "description": "A place for cool cats",
+    "gps": "lat37.3long-122"
   }
 }

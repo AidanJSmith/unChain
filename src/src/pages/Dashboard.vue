@@ -1,12 +1,20 @@
 <template>
   <div class="page">
-    <h1>Discover</h1>
-    <h2>Local Markets</h2>
+    <h1>Dashboard</h1>
+    <h2>Your Orders</h2>
     <div class="flex-wrap">
       <div class="card">
         <div class="title">
-          <h2>Some Marketasdfasdfasdf</h2>
-          <p>Rating</p>
+          <h2>Rutebaga</h2>
+          <p>$99.99</p>
+        </div>
+        <p>Some Market</p>
+        <p>Pickup: Wednesday</p>
+        <p>Quantity: 67</p>
+      </div>
+      <div class="card">
+        <div class="title">
+          <h2>Some Market</h2>
         </div>
         <p>Location</p>
         <p>Date</p>
@@ -15,16 +23,18 @@
       <div class="card">
         <div class="title">
           <h2>Some Market</h2>
-          <p>Rating</p>
         </div>
         <p>Location</p>
         <p>Date</p>
         <p>Some Vendors</p>
       </div>
+    </div>
+    <br>
+    <h2>Your Markets</h2>
+    <div class="flex-wrap">
       <div class="card">
         <div class="title">
           <h2>Some Market</h2>
-          <p>Rating</p>
         </div>
         <p>Location</p>
         <p>Date</p>
@@ -41,19 +51,12 @@
       </div>
     </div>
     <br>
-    <h2>Local Farms</h2>
-    <Hello />
   </div>
 </template>
 
 <script>
-import Hello from '../components/Hello'
-
 export default {
-  name: 'Index',
-  components: {
-    Hello
-  },
+  name: 'Dashboard',
   mounted () {
     // Check if user logged in, if so, hide the Hello component
   }
@@ -64,6 +67,7 @@ export default {
 .page {
   max-width: 1000px;
   margin: auto;
+  margin-bottom: 60px;
   overflow: hidden;
 
   h1 {

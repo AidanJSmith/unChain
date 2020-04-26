@@ -3,21 +3,35 @@
     <div class="content">
       <h1>Discover</h1>
       <h2>Local Markets</h2>
+      <p><b>Discover these great local markets.</b></p>
       <div class="flex-wrap">
         <div class="card" v-for="item in markets" :key="item.id">
           <div class="title">
-            <h2>{{item.id}}</h2>
-            <p>Rating</p>
+            <h2>{{item.marketName}}</h2>
+            <p>5/5</p>
           </div>
-          <p>Location</p>
-          <p>Date</p>
-          <p>Some Vendors</p>
+          <p>{{item.schedule.join(', ')}}</p>
+          <p>{{item.description}}</p>
+          <br>
         </div>
       </div>
       <br>
-      <h2>Local Farms</h2>
+      <h2>Local Products</h2>
+      <p><b>Discover fresh local produce.</b></p>
+      <div class="flex-wrap">
+        <div class="card" v-for="item in products" :key="item.id">
+          <div class="title">
+            <h2>{{item.marketName}}</h2>
+            <p>4.5/5</p>
+          </div>
+          <p>{{item.schedule.join(', ')}}</p>
+          <p>{{item.description}}</p>
+          <br>
+        </div>
+      </div>
+      <br>
     </div>
-    <Hello />
+    <Hello @set-lat="setLat" @set-long="setLong" />
   </div>
 </template>
 
@@ -29,6 +43,7 @@ export default {
   data () {
     return {
       markets: [],
+      products: [],
       lat: 0,
       long: 0
     }
@@ -38,16 +53,55 @@ export default {
   },
   mounted () {
     // Check if user logged in, if so, hide the Hello component
-    // Get markets
   },
   methods: {
     setLat (l) {
       this.lat = l
+      if (this.lat && this.long) {
+        this.searchMarkets()
+      }
       console.log(l)
     },
     setLong (l) {
       this.long = l
+      if (this.lat && this.long) {
+        this.searchMarkets()
+      }
       console.log(l)
+    },
+    searchMarkets () {
+      // Get markets
+      var xhr = new XMLHttpRequest()
+      var self = this
+
+      function redir (markets) {
+        for (let key of Object.keys(markets)) {
+          let xxhr = new XMLHttpRequest()
+
+          xxhr.addEventListener('readystatechange', function () {
+            if (this.readyState === 4) {
+              self.markets.push(JSON.parse(`${this.responseText}`))
+            }
+          })
+
+          let id = markets[key][0]
+          console.log(markets)
+          console.log(id)
+          xxhr.open('GET', `http://localhost:8081/getMarket/${id}`)
+          xxhr.setRequestHeader('Access-Control-Allow-Origin', '*')
+          xxhr.send()
+        }
+      }
+
+      xhr.addEventListener('readystatechange', function () {
+        if (this.readyState === 4) {
+          redir(JSON.parse(this.responseText))
+        }
+      })
+
+      xhr.open('GET', `http://localhost:8081/marketsNear/${this.lat}/${this.long}`)
+      xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
+      xhr.send()
     }
   }
 }
