@@ -13,7 +13,7 @@
         </div>
         <div class='hidden' id='step-2'>
           <div class='flex-row'>
-            <input type='combobox' id="city" placeholder="Your City" />
+            <input type='combobox' id="city" placeholder="Your City" v-bind="city" />
             <button id='continueWithArea' class='hidden' @click='showNextStep($event);'>Go</button>
           </div>
           <p>or</p>
@@ -29,9 +29,9 @@ export default {
   name: 'Hello',
   data () {
     return {
-      step: 1,
-      isFarmer: false,
-      zip: null
+      step: 1, // Step of setup
+      isFarmer: false, // Is a farmer account on setup?
+      city: null // Home base city or location
     }
   },
   methods: {
@@ -53,8 +53,8 @@ export default {
     }
   },
   watch: {
-    'zip': function () {
-      if (this.zip) {
+    'city': function () {
+      if (this.city) {
         document.getElementById('continueWithArea').style.display = 'unset'
       }
     }

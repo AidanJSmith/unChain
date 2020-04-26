@@ -69,19 +69,6 @@ export default {
   h1 {
     font-size: 5rem;
   }
-
-  @media screen and (max-width: 768px) {
-    > * {
-      opacity: 0;
-      animation: fade-in 0.5s forwards;
-      
-      @for $i from 0 through 20 {
-        &:nth-child(#{$i + 1}) {
-          animation-delay: 0.1s * $i;
-        }
-      }
-    }
-  }
 }
 
 .flex-wrap {
