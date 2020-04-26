@@ -6,13 +6,15 @@
       <p><b>Discover these great local markets.</b></p>
       <div class="flex-wrap">
         <div class="card" v-for="item in markets" :key="item.id">
-          <div class="title">
-            <h2>{{item.marketName}}</h2>
-            <p>5/5</p>
-          </div>
-          <p>{{item.schedule.join(', ')}}</p>
-          <p>{{item.description}}</p>
-          <br>
+          <router-link :to='"/market/" + encodeURIComponent(item.id)'>
+            <div class="title">
+              <h2>{{item.marketName}}</h2>
+              <p>5/5</p>
+            </div>
+            <p>{{item.schedule.join(', ')}}</p>
+            <p>{{item.description}}</p>
+            <br>
+          </router-link>
         </div>
       </div>
       <br>
@@ -161,6 +163,11 @@ export default {
     min-width: 300px;
     opacity: 0;
     animation: fade-in 0.5s forwards;
+
+    a {
+      text-decoration: none;
+      color: #333;
+    }
 
     .title {
       display: flex;

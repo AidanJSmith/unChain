@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/pages/Index'
 import Dashboard from '@/pages/Dashboard'
+import Market from '@/pages/MarketDetails'
 
 Vue.use(Router)
 
@@ -16,6 +17,11 @@ export default new Router({
       path: '/dashboard',
       name: 'Dashboard',
       component: Dashboard
+    },
+    {
+      path: '/market/:id',
+      name: 'MarketDetails',
+      component: Market
     }
   ]
 })
