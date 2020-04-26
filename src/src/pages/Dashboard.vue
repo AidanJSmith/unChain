@@ -14,19 +14,30 @@
       </div>
       <div class="card">
         <div class="title">
-          <h2>Some Market</h2>
+          <h2>Rutebaga</h2>
+          <p>$99.99</p>
         </div>
-        <p>Location</p>
-        <p>Date</p>
-        <p>Some Vendors</p>
+        <p>Some Market</p>
+        <p>Pickup: Wednesday</p>
+        <p>Quantity: 67</p>
       </div>
       <div class="card">
         <div class="title">
-          <h2>Some Market</h2>
+          <h2>Rutebaga</h2>
+          <p>$99.99</p>
         </div>
-        <p>Location</p>
-        <p>Date</p>
-        <p>Some Vendors</p>
+        <p>Some Market</p>
+        <p>Pickup: Wednesday</p>
+        <p>Quantity: 67</p>
+      </div>
+      <div class="card">
+        <div class="title">
+          <h2>Rutebaga</h2>
+          <p>$99.99</p>
+        </div>
+        <p>Some Market</p>
+        <p>Pickup: Wednesday</p>
+        <p>Quantity: 67</p>
       </div>
     </div>
     <br>
