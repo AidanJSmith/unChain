@@ -12,13 +12,7 @@
           </div>
         </div>
         <div class='hidden' id='step-2'>
-          <div class='flex-row'>
-            <input type='text' placeholder="Your City" v-model="city" autocomplete="off" />
-            <button id='continueWithArea' class='hidden' @click='showNextStep($event);'>Go</button>
-          </div>
-          <h3 v-model="city"></h3>
-          <p>or</p>
-          <button @click='showNextStep($event);'>Use Current Location</button>
+          <button @click='locale();showNextStep($event);'>Use Current Location</button>
         </div>
       </form>
     </div>
@@ -31,9 +25,7 @@ export default {
   data () {
     return {
       step: 1, // Step of setup
-      isFarmer: false, // Is a farmer account on setup?
-      city: '', // Home base city or location
-      appCity: '' // Ratified city from API
+      isFarmer: false // Is a farmer account on setup?
     }
   },
   methods: {
@@ -46,28 +38,19 @@ export default {
           document.getElementById('hello').style.display = 'none'
         }, 1000)
         e.preventDefault()
+        return
       }
       document.getElementById(`step-${this.step}`).style.display = 'flex'
       e.preventDefault()
     },
     locale () {
-      if (this.city) {
-        fetch('https://secure.geobytes.com/AutoCompleteCity?key=7c756203dbb38590a66e01a5a3e1ad96&callback=?&q=' + this.city,
-          {
-            mode: 'no-cors',
-            headers: {
-              'Access-Control-Allow-Origin': '*'
-            }
-          })
-          .then(data => { this.appCity = data })
-          .then(() => console.log(this.appCity.text()))
-        document.getElementById('continueWithArea').style.display = 'unset'
-      }
-    }
-  },
-  watch: {
-    city: function (entered, response) {
-      this.locale()
+      navigator.geolocation.getCurrentPosition((location) => {
+        this.$emit('setLat', location.coords.latitude)
+        this.$emit('setLong', location.coords.longitude)
+        console.log(location.coords.latitude)
+        console.log(location.coords.longitude)
+        console.log(location.coords.accuracy)
+      })
     }
   }
 }
@@ -88,6 +71,7 @@ export default {
   align-content: center;
   min-height: 100vh;
   transition-duration: 1s;
+  //display: none;
 }
 
 .logo {

@@ -28,7 +28,9 @@ export default {
   name: 'Index',
   data () {
     return {
-      markets: []
+      markets: [],
+      lat: 0,
+      long: 0
     }
   },
   components: {
@@ -37,7 +39,16 @@ export default {
   mounted () {
     // Check if user logged in, if so, hide the Hello component
     // Get markets
-    fetch('http://localhost:8081/marketsNear/37/122', { mode: 'no-cors' }).then(r => { this.markets = JSON.parse(r) })
+  },
+  methods: {
+    setLat (l) {
+      this.lat = l
+      console.log(l)
+    },
+    setLong (l) {
+      this.long = l
+      console.log(l)
+    }
   }
 }
 </script>
