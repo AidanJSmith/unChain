@@ -37,7 +37,7 @@ export default {
   mounted () {
     // Check if user logged in, if so, hide the Hello component
     // Get markets
-    fetch('http://127.0.0.1:8081/marketsNear/37/122', { mode: 'no-cors' }).then(r => { this.markets = JSON.parse(r) })
+    fetch('http://localhost:8081/marketsNear/37/122', { mode: 'no-cors' }).then(r => { this.markets = JSON.parse(r) })
   }
 }
 </script>

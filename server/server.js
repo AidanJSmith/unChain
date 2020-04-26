@@ -28,7 +28,7 @@ app.get('/getUser/:id', function (req, res) {
          res.send("NOT_FOUND");
          return;
       };
-      res.end( JSON.stringify(JSON.parse(data)[req.params.id])  );
+      res.send( JSON.stringify(JSON.parse(data)[req.params.id])  );
    });
 })
 
@@ -39,7 +39,7 @@ app.get('/getFarmer/:id', function (req, res) {
          res.send("NOT_FOUND");
          return;
       };
-      res.end( JSON.stringify(JSON.parse(data)[req.params.id])  );
+      res.send( JSON.stringify(JSON.parse(data)[req.params.id])  );
    });
 })
 
@@ -50,7 +50,7 @@ app.get('/getMarket/:id', function (req, res) {
          res.send("NOT_FOUND");
          return;
       };
-      res.end( JSON.stringify(JSON.parse(data)[req.params.id])  );
+      res.send( JSON.stringify(JSON.parse(data)[req.params.id])  );
    });
 })
 //Create a new User
@@ -128,7 +128,7 @@ app.post('/addProducts/:farmerid', function (req, res) {
    res.setHeader('Content-Type', 'application/json'); 
    fs.readFile( __dirname + "/" + "farmers.json", 'utf8', function (err, data) {
       if (JSON.parse(data)[req.params.farmerid]== undefined) {
-         res.send("USER_NOT_FOUND");
+         res.end("USER_NOT_FOUND");
          return;
       };
       let newdata=JSON.parse(data);
@@ -261,7 +261,7 @@ app.get('/marketProducts/:marketid', function (req, res) {
                   products.push([farmers[user]["products"][product],user]);
                }
             }
-            res.end(JSON.stringify(products));
+            res.send(JSON.stringify(products));
          })
          
       }
@@ -276,12 +276,14 @@ app.get('/marketsNear/:lat/:long', function (req, res) {
    fs.readFile( __dirname + "/" + "markets.json", 'utf8', function (err, data) {
       let withinrange=[]
       for (let market of Object.keys(JSON.parse(data))) {
+         console.log(market);
+         console.log(data["exfat"]);
          let distance= getDistanceFromLatLonInKm(latitude,longitude,data[market]["gps"].split("lat")[1].split("long")[0],data[market]["gps"].split("lat")[1].split("long")[1])
          if (distance<=25) {
             withinrange.push([market,distance]);
          }
       }
-      res.end(JSON.stringify(withinrange));
+      res.send(JSON.stringify(withinrange));
    });
 })
 
