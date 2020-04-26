@@ -4,36 +4,9 @@
       <h1>Discover</h1>
       <h2>Local Markets</h2>
       <div class="flex-wrap">
-        <div class="card">
+        <div class="card" v-for="item in markets" :key="item.id">
           <div class="title">
-            <h2>Some Marketasdfasdfasdf</h2>
-            <p>Rating</p>
-          </div>
-          <p>Location</p>
-          <p>Date</p>
-          <p>Some Vendors</p>
-        </div>
-        <div class="card">
-          <div class="title">
-            <h2>Some Market</h2>
-            <p>Rating</p>
-          </div>
-          <p>Location</p>
-          <p>Date</p>
-          <p>Some Vendors</p>
-        </div>
-        <div class="card">
-          <div class="title">
-            <h2>Some Market</h2>
-            <p>Rating</p>
-          </div>
-          <p>Location</p>
-          <p>Date</p>
-          <p>Some Vendors</p>
-        </div>
-        <div class="card">
-          <div class="title">
-            <h2>Some Market</h2>
+            <h2>{{item.id}}</h2>
             <p>Rating</p>
           </div>
           <p>Location</p>
@@ -53,11 +26,18 @@ import Hello from '../components/Hello'
 
 export default {
   name: 'Index',
+  data () {
+    return {
+      markets: []
+    }
+  },
   components: {
     Hello
   },
   mounted () {
     // Check if user logged in, if so, hide the Hello component
+    // Get markets
+    fetch('http://127.0.0.1:8081/marketsNear/37/122', { mode: 'no-cors' }).then(r => { this.markets = JSON.parse(r) })
   }
 }
 </script>

@@ -55,8 +55,9 @@ main {
 
   footer {
     background-color: #ccc;
-    line-height: 60px;
-    height: 60px;
+    line-height: 50px;
+    height: 50px;
+    padding-top: 10px;
     position: absolute;
     bottom: 0;
     left: 0;
