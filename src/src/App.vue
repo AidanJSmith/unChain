@@ -50,12 +50,12 @@ body {
 
 main {
   text-align: center;
-  min-height: 100vh;
+  height: 100vh;
   position: relative;
 
   footer {
     background-color: #ccc;
-    line-height: 75px;
+    line-height: 60px;
     height: 60px;
     position: absolute;
     bottom: 0;

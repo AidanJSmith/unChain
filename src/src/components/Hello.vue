@@ -13,9 +13,10 @@
         </div>
         <div class='hidden' id='step-2'>
           <div class='flex-row'>
-            <input type='combobox' id="city" placeholder="Your City" v-bind="city" />
+            <input type='text' placeholder="Your City" v-model="city" autocomplete="off" />
             <button id='continueWithArea' class='hidden' @click='showNextStep($event);'>Go</button>
           </div>
+          <h3 v-model="city"></h3>
           <p>or</p>
           <button @click='showNextStep($event);'>Use Current Location</button>
         </div>
@@ -31,7 +32,8 @@ export default {
     return {
       step: 1, // Step of setup
       isFarmer: false, // Is a farmer account on setup?
-      city: null // Home base city or location
+      city: '', // Home base city or location
+      appCity: '' // Ratified city from API
     }
   },
   methods: {
@@ -49,14 +51,23 @@ export default {
       e.preventDefault()
     },
     locale () {
-      fetch('https://secure.geobytes.com/AutoCompleteCity?key=7c756203dbb38590a66e01a5a3e1ad96&callback=?&q=').then()
+      if (this.city) {
+        fetch('https://secure.geobytes.com/AutoCompleteCity?key=7c756203dbb38590a66e01a5a3e1ad96&callback=?&q=' + this.city,
+          {
+            mode: 'no-cors',
+            headers: {
+              'Access-Control-Allow-Origin': '*'
+            }
+          })
+          .then(data => { this.appCity = data })
+          .then(() => console.log(this.appCity.text()))
+        document.getElementById('continueWithArea').style.display = 'unset'
+      }
     }
   },
   watch: {
-    'city': function () {
-      if (this.city) {
-        document.getElementById('continueWithArea').style.display = 'unset'
-      }
+    city: function (entered, response) {
+      this.locale()
     }
   }
 }
@@ -69,6 +80,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 10;
   background-color: #fff;
   display: flex;
   flex-direction: column;
@@ -76,7 +88,6 @@ export default {
   align-content: center;
   min-height: 100vh;
   transition-duration: 1s;
-  display: none;
 }
 
 .logo {

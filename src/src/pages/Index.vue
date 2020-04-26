@@ -1,47 +1,49 @@
 <template>
   <div class="page">
-    <h1>Discover</h1>
-    <h2>Local Markets</h2>
-    <div class="flex-wrap">
-      <div class="card">
-        <div class="title">
-          <h2>Some Marketasdfasdfasdf</h2>
-          <p>Rating</p>
+    <div class="content">
+      <h1>Discover</h1>
+      <h2>Local Markets</h2>
+      <div class="flex-wrap">
+        <div class="card">
+          <div class="title">
+            <h2>Some Marketasdfasdfasdf</h2>
+            <p>Rating</p>
+          </div>
+          <p>Location</p>
+          <p>Date</p>
+          <p>Some Vendors</p>
         </div>
-        <p>Location</p>
-        <p>Date</p>
-        <p>Some Vendors</p>
-      </div>
-      <div class="card">
-        <div class="title">
-          <h2>Some Market</h2>
-          <p>Rating</p>
+        <div class="card">
+          <div class="title">
+            <h2>Some Market</h2>
+            <p>Rating</p>
+          </div>
+          <p>Location</p>
+          <p>Date</p>
+          <p>Some Vendors</p>
         </div>
-        <p>Location</p>
-        <p>Date</p>
-        <p>Some Vendors</p>
-      </div>
-      <div class="card">
-        <div class="title">
-          <h2>Some Market</h2>
-          <p>Rating</p>
+        <div class="card">
+          <div class="title">
+            <h2>Some Market</h2>
+            <p>Rating</p>
+          </div>
+          <p>Location</p>
+          <p>Date</p>
+          <p>Some Vendors</p>
         </div>
-        <p>Location</p>
-        <p>Date</p>
-        <p>Some Vendors</p>
-      </div>
-      <div class="card">
-        <div class="title">
-          <h2>Some Market</h2>
-          <p>Rating</p>
+        <div class="card">
+          <div class="title">
+            <h2>Some Market</h2>
+            <p>Rating</p>
+          </div>
+          <p>Location</p>
+          <p>Date</p>
+          <p>Some Vendors</p>
         </div>
-        <p>Location</p>
-        <p>Date</p>
-        <p>Some Vendors</p>
       </div>
+      <br>
+      <h2>Local Farms</h2>
     </div>
-    <br>
-    <h2>Local Farms</h2>
     <Hello />
   </div>
 </template>
@@ -71,7 +73,7 @@ export default {
   }
 
   @media screen and (max-width: 768px) {
-    > * {
+    > .content > * {
       opacity: 0;
       animation: fade-in 0.5s forwards;
       
